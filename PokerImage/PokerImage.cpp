@@ -26,14 +26,17 @@ void PokerImageProcess(const char* req_info, OnStartFunc on_start,
     const auto& operation =
         jsoncpp_helper::GetString(req_info_json["operation"]);
     if (operation.empty()) {
+      start_result = -2;
       break;
     }
     auto search = map_res_type.find(operation);
     if (search == map_res_type.end()) {
+      start_result = -1;
       break;
     }
     start_result = search->second(req_info, on_callback);
   } while (false);
+  on_start_result["start_result"] = start_result;
   const auto& on_start_result_str =
       jsoncpp_helper::WriterHelper(on_start_result);
   on_start(on_start_result_str.c_str());
