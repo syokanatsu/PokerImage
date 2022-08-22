@@ -4,12 +4,14 @@
 cmake_minimum_required (VERSION 3.8)
 
 # 将源代码添加到此项目的可执行文件。
+
+aux_source_directory(. POKER_SOURCES)
 add_library(
   PokerImage
   SHARED
-  "PokerImage.cpp"
-  "PokerImage.h"
+  ${POKER_SOURCES}
 )
-target_link_libraries(PokerImage libgd_static json json_helper)
+
+target_link_libraries(PokerImage libgd_static jsoncpp JsonHelper)
 
 # TODO: 如有需要，请添加测试并安装目标。

@@ -6,6 +6,11 @@ set(THIRD_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/third_party/include)
 set(THIRD_LIB ${CMAKE_CURRENT_SOURCE_DIR}/third_party/lib)
 include_directories(${THIRD_INCLUDE})
 link_directories(${THIRD_LIB})
+
+set(CMAKE_CXX_FLAGS_RELEASE "/MT")
+set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
+
+
 project ("PokerImage")
 
 # 包含子项目。
