@@ -31,7 +31,7 @@ void PokerImageProcess(const char* req_info, OnStartFunc on_start,
     }
     auto search = map_res_type.find(operation);
     if (search == map_res_type.end()) {
-      start_result = -1;
+      start_result = 10;
       break;
     }
     start_result = search->second(req_info, on_callback);

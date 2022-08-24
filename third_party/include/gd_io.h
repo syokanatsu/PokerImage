@@ -39,48 +39,52 @@ extern "C" {
 
   > typedef struct gdIOCtx
   > {
-  >   int (*getC)(gdIOCtxPtr);
-  >   int (*getBuf)(gdIOCtxPtr, void *, int wanted);
+  >   int (*getC) (struct gdIOCtx *);
+  >   int (*getBuf) (struct gdIOCtx *, void *, int wanted);
   >
-  >   void (*putC)(gdIOCtxPtr, int);
-  >   int (*putBuf)(gdIOCtxPtr, const void *, int wanted);
+  >   void (*putC) (struct gdIOCtx *, int);
+  >   int (*putBuf) (struct gdIOCtx *, const void *, int wanted);
   >
   >   // seek must return 1 on SUCCESS, 0 on FAILURE. Unlike fseek!
-  >   int (*seek)(gdIOCtxPtr, const int);
-  >   long (*tell)(gdIOCtxPtr);
+  >   int (*seek) (struct gdIOCtx *, const int);
+  >   long (*tell) (struct gdIOCtx *);
   >
-  >   void (*gd_free)(gdIOCtxPtr);
+  >   void (*gd_free) (struct gdIOCtx *);
   > } gdIOCtx;
- */
-typedef struct gdIOCtx *gdIOCtxPtr;
 
+
+
+
+ */
 typedef struct gdIOCtx {
-    int (*getC)(gdIOCtxPtr);
-    int (*getBuf)(gdIOCtxPtr, void *, int);
-    void (*putC)(gdIOCtxPtr, int);
-    int (*putBuf)(gdIOCtxPtr, const void *, int);
+    int (*getC)(struct gdIOCtx *);
+    int (*getBuf)(struct gdIOCtx *, void *, int);
+    void (*putC)(struct gdIOCtx *, int);
+    int (*putBuf)(struct gdIOCtx *, const void *, int);
     /* seek must return 1 on SUCCESS, 0 on FAILURE. Unlike fseek! */
-    int (*seek)(gdIOCtxPtr, const int);
-    long (*tell)(gdIOCtxPtr);
-    void (*gd_free)(gdIOCtxPtr);
+    int (*seek)(struct gdIOCtx *, const int);
+    long (*tell)(struct gdIOCtx *);
+    void (*gd_free)(struct gdIOCtx *);
     void *data;
 } gdIOCtx;
 
-void gdPutC(const unsigned char c, gdIOCtxPtr ctx);
-int gdPutBuf(const void *, int, gdIOCtxPtr);
-void gdPutWord(int w, gdIOCtxPtr ctx);
-void gdPutInt(int w, gdIOCtxPtr ctx);
+typedef struct gdIOCtx *gdIOCtxPtr;
 
-int gdGetC(gdIOCtxPtr ctx);
-int gdGetBuf(void *, int, gdIOCtxPtr);
-int gdGetByte(int *result, gdIOCtxPtr ctx);
-int gdGetWord(int *result, gdIOCtxPtr ctx);
-int gdGetWordLSB(signed short int *result, gdIOCtxPtr ctx);
-int gdGetInt(int *result, gdIOCtxPtr ctx);
-int gdGetIntLSB(signed int *result, gdIOCtxPtr ctx);
+void gdPutC(const unsigned char c, gdIOCtx *ctx);
+int gdPutBuf(const void *, int, gdIOCtx *);
+void gdPutWord(int w, gdIOCtx *ctx);
+void gdPutInt(int w, gdIOCtx *ctx);
 
-int gdSeek(gdIOCtxPtr ctx, const int offset);
-long gdTell(gdIOCtxPtr ctx);
+int gdGetC(gdIOCtx *ctx);
+int gdGetBuf(void *, int, gdIOCtx *);
+int gdGetByte(int *result, gdIOCtx *ctx);
+int gdGetWord(int *result, gdIOCtx *ctx);
+int gdGetWordLSB(signed short int *result, gdIOCtx *ctx);
+int gdGetInt(int *result, gdIOCtx *ctx);
+int gdGetIntLSB(signed int *result, gdIOCtx *ctx);
+
+int gdSeek(gdIOCtx *ctx, const int offset);
+long gdTell(gdIOCtx *ctx);
 
 #ifdef __cplusplus
 }

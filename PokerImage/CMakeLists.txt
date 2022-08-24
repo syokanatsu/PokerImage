@@ -12,6 +12,6 @@ add_library(
   ${POKER_SOURCES}
 )
 
-target_link_libraries(PokerImage libgd_static jsoncpp JsonHelper)
+target_link_libraries(PokerImage libgd jsoncpp JsonHelper Tools)
 
 # TODO: 如有需要，请添加测试并安装目标。
